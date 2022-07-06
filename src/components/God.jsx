@@ -1,8 +1,8 @@
 export default function God({god}) {
   return (
-    <div>
+    <div className="god-card">
         <h3>{god.name}</h3>
-        <p>{god.category}</p>
+        <p>{god.power}</p>
     </div>
   )
 }

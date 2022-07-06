@@ -1,9 +1,8 @@
 export default function Filter({ filterGods, nPlayers, setNPlayers }) {
     const doFilter = (e) => {
-        e.preventDefault();
-        filterGods(nPlayers);
-    };
-
+        e.preventDefault()
+        filterGods(nPlayers)
+    }
 
     return (
         <form>
@@ -11,7 +10,9 @@ export default function Filter({ filterGods, nPlayers, setNPlayers }) {
             <input type='text' name='n-players' value={nPlayers} onChange={(e) => setNPlayers(e.target.value)} />
             <br />
 
-            <button onClick={(e) => doFilter(e)}>test</button>
+            <button className='shuffle-btn' onClick={(e) => doFilter(e)}>
+                Shuffle
+            </button>
         </form>
-    );
+    )
 }

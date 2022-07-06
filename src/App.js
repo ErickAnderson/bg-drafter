@@ -1,72 +1,61 @@
-import { useState, useEffect, useRef } from "react";
-import Filter from "./components/Filter";
-import God from "./components/God";
+import { useState, useEffect, useRef } from "react"
+import Filter from "./components/Filter"
+import Player from "./components/Player"
+import "./App.css"
+
+//TODO Use a json instead of an object
+import defaultGods from "./gods"
 
 function App() {
-    const dGods = [
-        {
-            id: 1,
-            name: "Apollo",
-            category: "basic",
-        },
-        {
-            id: 2,
-            name: "Pan",
-            category: "basic",
-        },
-        {
-            id: 3,
-            name: "Chaos",
-            category: "advanced",
-        },
-        {
-            id: 4,
-            name: "Selene",
-            category: "advanced",
-        },
-        {
-            id: 5,
-            name: "Zeus",
-            category: "advanced",
-        },
-    ];
+    const [gods, setGods] = useState([])
+    const [player1Gods, setPlayer1Gods] = useState([])
+    const [player2Gods, setPlayer2Gods] = useState([])
+    const [nPlayers, setNPlayers] = useState(2)
 
-    const [gods, setGods] = useState(dGods);
-    const [nPlayers, setNPlayers] = useState(2);
+    useEffect(() => {
+        setGods(defaultGods)
+    }, [])
 
+    //TODO add support to dynamic number of players
+    //TODO add support to filter per category
+    //TODO refactor into a more clean code
     const filterGods = (nPlayers) => {
-        if (nPlayers >= 1) {
-            setGods(shuffle(dGods).slice(0, nPlayers));
-        }
-    };
+        let p1 = []
+        let p2 = []
+        let temp = []
+
+        setGods(shuffle(gods))
+        temp = gods.filter((god) => god.category === "basic")
+        p1.push(temp.pop())
+        p2.push(temp.pop())
+
+        temp = gods.filter((god) => god.category === "advanced")
+        p1.push(temp.pop())
+        p1.push(temp.pop())
+        p2.push(temp.pop())
+        p2.push(temp.pop())
+
+        setPlayer1Gods(p1)
+        setPlayer2Gods(p2)
+    }
 
     const shuffle = (data) => {
         return data
             .map((value) => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
-            .map(({ value }) => value);
-    };
-
-    const player = (nPlayers) => {
-        var show = [];
-        for (let i = 0; i <= nPlayers; i++) {
-            show.push(<p>Players nPlayers </p>);
-        }
-        console.log(show)
-        return show;
-        // export as a component
-    };
+            .map(({ value }) => value)
+    }
 
     return (
-        <div className='App'>
-            <Filter gods={gods} filterGods={filterGods} nPlayers={nPlayers} setNPlayers={setNPlayers} />
+        <div className='app'>
+            <Filter filterGods={filterGods} nPlayers={nPlayers} setNPlayers={setNPlayers} />
 
-            {player()}
-            {gods.map((god) => (
-                <God key={god.id} god={god} />
-            ))}
+            <div className='player-container'>
+                <Player gods={player1Gods} />
+                <Player gods={player2Gods} />
+            </div>
         </div>
-    );
+    )
 }
 
-export default App;
+export default App

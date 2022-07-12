@@ -6,9 +6,10 @@ export default function Filter({ filterGods, nPlayers, setNPlayers }) {
 
     return (
         <form>
-            <label htmlFor='n-players'>Number of Players:</label>
+
+            {/* <label htmlFor='n-players'>Number of Players:</label>
             <input type='text' name='n-players' value={nPlayers} onChange={(e) => setNPlayers(e.target.value)} />
-            <br />
+            <br /> */}
 
             <button className='shuffle-btn' onClick={(e) => doFilter(e)}>
                 Shuffle

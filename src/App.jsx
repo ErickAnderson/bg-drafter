@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import Filter from "./components/Filter"
 import Player from "./components/Player"
 import "./App.css"
@@ -47,11 +47,12 @@ function App() {
     }
 
     return (
+        // TODO make name att on player input based
         <div className='app'>
-            <Filter filterGods={filterGods} nPlayers={nPlayers} setNPlayers={setNPlayers} />
+            <Filter gods={gods} filterGods={filterGods} nPlayers={nPlayers} setNPlayers={setNPlayers} />
 
             <div className='player-container'>
-                <Player gods={player1Gods} />
+                <Player gods={player1Gods} name="Erick" /> 
                 <Player gods={player2Gods} />
             </div>
         </div>
